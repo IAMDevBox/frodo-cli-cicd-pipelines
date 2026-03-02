@@ -1,0 +1,21 @@
+# Never commit ForgeRock secrets to Git
+exports/esv/secrets*.json
+*.secret.json
+
+# Frodo CLI local cache
+.frodo/
+TokenCache.json
+
+# Deployment backups (temporary, not for version control)
+backup/
+
+# Local environment variables
+.env
+.env.local
+
+# Python
+__pycache__/
+*.pyc
+
+# Node
+node_modules/

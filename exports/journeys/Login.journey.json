@@ -1,0 +1,53 @@
+{
+  "_id": "Login",
+  "_type": {
+    "_id": "trees",
+    "name": "Authentication Trees",
+    "collection": true
+  },
+  "entryNodeId": "page-node-1",
+  "nodes": {
+    "page-node-1": {
+      "_id": "page-node-1",
+      "nodeType": "PageNode",
+      "displayName": "Login Page",
+      "x": 155,
+      "y": 100,
+      "_type": {
+        "_id": "PageNode",
+        "name": "Page Node",
+        "collection": false
+      },
+      "nodes": [
+        {
+          "_id": "username-collector",
+          "nodeType": "ValidatedUsernameNode",
+          "displayName": "Username Collector",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "_id": "password-collector",
+          "nodeType": "PasswordCollectorNode",
+          "displayName": "Password Collector",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "connections": {
+        "outcome": "username-password-auth"
+      }
+    }
+  },
+  "staticNodes": {
+    "startNode": {
+      "x": 40,
+      "y": 100
+    }
+  },
+  "uiConfig": {
+    "categories": "[]"
+  },
+  "enabled": true,
+  "description": "Default login journey — username and password authentication"
+}

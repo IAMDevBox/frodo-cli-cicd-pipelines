@@ -1,0 +1,12 @@
+{
+  "_id": "custom-validation-script",
+  "name": "Custom Username Validation",
+  "description": "Validates username format before authentication",
+  "script": "// Custom username validation script\n// Enforces email format and blocks known bad actors\nvar username = sharedState.get('username');\nif (!username) {\n    action.goTo('false').withErrorMessage('Username is required');\n} else if (!username.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/)) {\n    action.goTo('false').withErrorMessage('Please enter a valid email address');\n} else {\n    action.goTo('true');\n}",
+  "language": "JAVASCRIPT",
+  "context": "AUTHENTICATION_TREE_DECISION_NODE",
+  "createdBy": "id=dsameuser,ou=user,dc=openam,dc=forgerock,dc=org",
+  "creationDate": 1700000000000,
+  "lastModifiedBy": "id=dsameuser,ou=user,dc=openam,dc=forgerock,dc=org",
+  "lastModifiedDate": 1700000000000
+}

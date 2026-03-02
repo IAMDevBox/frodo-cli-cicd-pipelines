@@ -1,0 +1,82 @@
+name: Export ForgeRock Configuration
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-frodo-cli
+
+      - name: Install Frodo CLI
+        run: npm install -g @rockcarver/frodo-cli
+
+      - name: Verify connection
+        env:
+          FRODO_HOST: ${{ secrets.FRODO_DEV_HOST }}
+          FRODO_USER: ${{ secrets.FRODO_DEV_USER }}
+          FRODO_PASSWORD: ${{ secrets.FRODO_DEV_PASSWORD }}
+        run: frodo journey list
+
+      - name: Export Journeys
+        env:
+          FRODO_HOST: ${{ secrets.FRODO_DEV_HOST }}
+          FRODO_USER: ${{ secrets.FRODO_DEV_USER }}
+          FRODO_PASSWORD: ${{ secrets.FRODO_DEV_PASSWORD }}
+        run: |
+          mkdir -p exports/journeys
+          frodo journey export --all --directory exports/journeys
+
+      - name: Export Scripts
+        env:
+          FRODO_HOST: ${{ secrets.FRODO_DEV_HOST }}
+          FRODO_USER: ${{ secrets.FRODO_DEV_USER }}
+          FRODO_PASSWORD: ${{ secrets.FRODO_DEV_PASSWORD }}
+        run: |
+          mkdir -p exports/scripts
+          frodo script export --all --directory exports/scripts
+
+      - name: Export OAuth Clients
+        env:
+          FRODO_HOST: ${{ secrets.FRODO_DEV_HOST }}
+          FRODO_USER: ${{ secrets.FRODO_DEV_USER }}
+          FRODO_PASSWORD: ${{ secrets.FRODO_DEV_PASSWORD }}
+        run: |
+          mkdir -p exports/oauth
+          frodo oauth client export --all --directory exports/oauth
+
+      - name: Export ESV Variables
+        env:
+          FRODO_HOST: ${{ secrets.FRODO_DEV_HOST }}
+          FRODO_USER: ${{ secrets.FRODO_DEV_USER }}
+          FRODO_PASSWORD: ${{ secrets.FRODO_DEV_PASSWORD }}
+        run: |
+          mkdir -p exports/esv
+          frodo esv variable export --all --directory exports/esv || true
+
+      - name: Commit and Push
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add exports/
+          git diff --staged --quiet || git commit -m "chore: daily config export $(date +%Y-%m-%d)" && git push || true
