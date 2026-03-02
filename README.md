@@ -26,12 +26,11 @@ Plus:
 
 ```
 frodo-cli-cicd-pipelines/
-├── .github/
-│   └── workflows/
-│       ├── export-config.yml          # Daily automated backup
-│       ├── deploy-staging.yml         # Deploy to staging on PR merge
-│       ├── deploy-prod.yml            # Deploy to production (release-triggered)
-│       └── multi-env-deploy.yml       # Multi-tenant parallel deploy
+├── workflows/                         # Copy to .github/workflows/ in your repo
+│   ├── export-config.yml              # Daily automated backup
+│   ├── deploy-staging.yml             # Deploy to staging on PR merge
+│   ├── deploy-prod.yml                # Deploy to production (release-triggered)
+│   └── multi-env-deploy.yml           # Multi-tenant parallel deploy
 ├── exports/
 │   ├── journeys/                      # Exported journey JSON files
 │   │   ├── Login.journey.json
@@ -54,13 +53,17 @@ frodo-cli-cicd-pipelines/
 
 ## Quick Start
 
-### 1. Fork/Clone This Repo
+### 1. Clone This Repo
 
-Use it as a template for your ForgeRock config repository:
+Use it as a starting point for your ForgeRock config repository:
 
 ```bash
-gh repo create my-forgerock-config --template IAMDevBox/frodo-cli-cicd-pipelines
+git clone https://github.com/IAMDevBox/frodo-cli-cicd-pipelines.git my-forgerock-config
 cd my-forgerock-config
+
+# Activate the GitHub Actions workflows
+mkdir -p .github/workflows
+cp workflows/*.yml .github/workflows/
 ```
 
 ### 2. Configure GitHub Secrets
