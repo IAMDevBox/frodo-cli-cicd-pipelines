@@ -1,0 +1,65 @@
+name: Multi-Environment Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      environments:
+        description: 'Comma-separated environments (e.g. dev,staging)'
+        required: true
+        default: 'dev,staging'
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.build-matrix.outputs.matrix }}
+    steps:
+      - name: Build environment matrix
+        id: build-matrix
+        env:
+          ENVS_INPUT: ${{ github.event.inputs.environments }}
+        run: |
+          MATRIX=$(python3 -c "
+          import json, os
+          envs = [e.strip() for e in os.environ['ENVS_INPUT'].split(',') if e.strip()]
+          print(json.dumps({'environment': envs}))
+          ")
+          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+
+  deploy:
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(needs.setup.outputs.matrix) }}
+      fail-fast: false
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-frodo-cli
+
+      - name: Install Frodo CLI
+        run: npm install -g @rockcarver/frodo-cli
+
+      - name: Deploy to ${{ matrix.environment }}
+        env:
+          FRODO_HOST: ${{ secrets[format('FRODO_{0}_HOST', matrix.environment)] }}
+          FRODO_USER: ${{ secrets[format('FRODO_{0}_USER', matrix.environment)] }}
+          FRODO_PASSWORD: ${{ secrets[format('FRODO_{0}_PASSWORD', matrix.environment)] }}
+          ENV_NAME: ${{ matrix.environment }}
+        run: |
+          echo "Deploying to environment: $ENV_NAME"
+          frodo script import --all --directory exports/scripts
+          frodo journey import --all --directory exports/journeys
+          frodo oauth client import --all --directory exports/oauth
+          echo "Deployment to $ENV_NAME complete"
