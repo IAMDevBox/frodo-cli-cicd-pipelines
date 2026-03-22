@@ -2,7 +2,7 @@
 
 Production-ready GitHub Actions CI/CD pipelines for automating ForgeRock/PingOne AIC configuration management using [Frodo CLI](https://github.com/rockcarver/frodo-cli).
 
-> **Full tutorial**: [Frodo CLI for CI/CD: Automating Journey Export and Import in GitHub Actions](https://iamdevbox.com/posts/frodo-cli-for-cicd-automating-journey-export-import-in-github-actions/)
+> **Full tutorial**: [Frodo CLI for CI/CD: Automating Journey Export and Import in GitHub Actions](https://iamdevbox.com/posts/frodo-cli-for-cicd-automating-journey-export-import-in-github-actions/?utm_source=github&utm_medium=companion-repo&utm_campaign=frodo-cli-cicd-pipelines)
 
 ## What This Repo Provides
 
@@ -200,10 +200,10 @@ DEBUG=frodo:* frodo journey list --verbose
 
 ## Related Resources
 
-- **Full Tutorial**: [Frodo CLI for CI/CD: Automating Journey Export and Import in GitHub Actions](https://iamdevbox.com/posts/frodo-cli-for-cicd-automating-journey-export-import-in-github-actions/)
-- **Frodo CLI Series**: [Complete Frodo CLI Guide](https://iamdevbox.com/posts/frodo-cli-complete-guide-installation-setup-and-multi-tenant-management/)
-- **Script Management**: [Frodo Script Bulk Export/Import](https://iamdevbox.com/posts/frodo-script-management-bulk-export-import-and-version-control-for-am-scripts/)
-- **ESV Automation**: [Frodo ESV Management](https://iamdevbox.com/posts/frodo-esv-management-environment-secrets-and-variables-automation/)
+- **Full Tutorial**: [Frodo CLI for CI/CD: Automating Journey Export and Import in GitHub Actions](https://iamdevbox.com/posts/frodo-cli-for-cicd-automating-journey-export-import-in-github-actions/?utm_source=github&utm_medium=companion-repo&utm_campaign=frodo-cli-cicd-pipelines)
+- **Frodo CLI Series**: [Complete Frodo CLI Guide](https://iamdevbox.com/posts/frodo-cli-complete-guide-installation-setup-and-multi-tenant-management/?utm_source=github&utm_medium=companion-repo&utm_campaign=frodo-cli-cicd-pipelines)
+- **Script Management**: [Frodo Script Bulk Export/Import](https://iamdevbox.com/posts/frodo-script-management-bulk-export-import-and-version-control-for-am-scripts/?utm_source=github&utm_medium=companion-repo&utm_campaign=frodo-cli-cicd-pipelines)
+- **ESV Automation**: [Frodo ESV Management](https://iamdevbox.com/posts/frodo-esv-management-environment-secrets-and-variables-automation/?utm_source=github&utm_medium=companion-repo&utm_campaign=frodo-cli-cicd-pipelines)
 - **Official Frodo CLI**: [github.com/rockcarver/frodo-cli](https://github.com/rockcarver/frodo-cli)
 
 ## License
@@ -212,4 +212,4 @@ MIT — use freely in your own ForgeRock automation projects.
 
 ---
 
-*Built by [IAMDevBox.com](https://iamdevbox.com) — IAM tutorials, tools, and automation for identity developers.*
+*Built by [IAMDevBox.com](https://iamdevbox.com/?utm_source=github&utm_medium=companion-repo&utm_campaign=frodo-cli-cicd-pipelines) — IAM tutorials, tools, and automation for identity developers.*
